@@ -1,2 +1,6 @@
 [cache]
-    dir = /home/shared/dvc-cache
+    dir = /tmp/dvc-cache
+[core]
+    remote = data-external
+['remote "data-external"']
+    url = /tmp/dvc-external/tpu-workflow
