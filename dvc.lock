@@ -1,0 +1,31 @@
+prepare:
+  cmd: python3 pipeline/prepare.py
+  deps:
+  - path: data.zip
+    md5: fa9c0eb4173d86695b4e800219651360
+    size: 41122310
+  - path: pipeline/prepare.py
+    md5: eb00111a5756b4e9d87d6cd353a482fe
+    size: 128
+  outs:
+  - path: data/
+    md5: b8f4d5a78e55e88906d5f4aeaf43802e.dir
+    size: 41149064
+    nfiles: 1800
+train:
+  cmd: python3 pipeline/train.py
+  deps:
+  - path: data/
+    md5: b8f4d5a78e55e88906d5f4aeaf43802e.dir
+    size: 41149064
+    nfiles: 1800
+  - path: pipeline/train.py
+    md5: b698dc60e151b79b9e0f5acfbc9e6e15
+    size: 3078
+  outs:
+  - path: metrics.csv
+    md5: a454f879015517dbce111da72a058c31
+    size: 815
+  - path: model.h5
+    md5: bc5bc7ddcca1409aef8fe2111d95265b
+    size: 8405536
