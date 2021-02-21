@@ -12,8 +12,9 @@ stages:
     - data/
     - pipeline/train.py
     outs:
-    - model.h5
+    - model.h5:
+        cache: false
     metrics:
     - metrics.csv:
         cache: false
-        
+
