@@ -24,8 +24,8 @@ train:
     size: 3078
   outs:
   - path: metrics.csv
-    md5: a454f879015517dbce111da72a058c31
-    size: 815
+    md5: 2a44145862f9aa5541ad2a42e81510b7
+    size: 839
   - path: model.h5
-    md5: bc5bc7ddcca1409aef8fe2111d95265b
+    md5: c97756c14899e8a0092a4e7fdbf57a62
     size: 8405536

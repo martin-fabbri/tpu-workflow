@@ -5,7 +5,8 @@ stages:
     - data.zip
     - pipeline/prepare.py
     outs:
-    - data/
+    - data/:
+        cache: false
   train:
     cmd: python3 pipeline/train.py
     deps:
