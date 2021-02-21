@@ -3,5 +3,17 @@ stages:
     cmd: python3 pipeline/prepare.py
     deps:
     - data.zip
+    - pipeline/prepare.py
     outs:
     - data/
+  train:
+    cmd: python3 pipeline/train.py
+    deps:
+    - data/
+    - pipeline/train.py
+    outs:
+    - model.h5
+    metrics:
+    - metrics.csv:
+        cache: false
+        
