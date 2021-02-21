@@ -1,60 +1,31 @@
-"""This script goes along the blog post
-"Building powerful image classification models using very little data"
-from blog.keras.io.
-In our example we will be using data that can be downloaded at:
-https://www.kaggle.com/tongpython/cat-and-dog
-In our setup, it expects:
-- a data/ folder
-- train/ and validation/ subfolders inside data/
-- cats/ and dogs/ subfolders inside train/ and validation/
-- put the cat pictures index 0-X in data/train/cats
-- put the cat pictures index 1000-1400 in data/validation/cats
-- put the dogs pictures index 0-X in data/train/dogs
-- put the dog pictures index 1000-1400 in data/validation/dogs
-We have X training examples for each class, and 400 validation examples
-for each class. In summary, this is our directory structure:
-```
-data/
-    train/
-        dogs/
-            dog001.jpg
-            dog002.jpg
-            ...
-        cats/
-            cat001.jpg
-            cat002.jpg
-            ...
-    validation/
-        dogs/
-            dog001.jpg
-            dog002.jpg
-            ...
-        cats/
-            cat001.jpg
-            cat002.jpg
-            ...
-```
-"""
-import numpy as np
-import sys
 import os
+import sys
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dropout, Flatten, Dense
+import numpy as np
+import yaml
 from tensorflow.keras import applications
 from tensorflow.keras.callbacks import CSVLogger
+from tensorflow.keras.layers import Dense, Dropout, Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tqdm.keras import TqdmCallback
 
-from config import Config
+from config import config
+
+with open(config.PARAMS, "r") as fd:
+    params = yaml.safe_load(fd)
+
+nb_validation_samples = params["train"]["nb_validation_samples"]
+epochs = params["train"]["epochs"]
+batch_size = params["train"]["batch_size"]
 
 # dimensions of our images.
 img_width, img_height = 150, 150
 
 top_model_weights_path = "model.h5"
-train_data_dir = Config.TRAIN_DATA_DIR
-validation_data_dir = Config.VALIDATION_DATA_DIR
-cats_train_path = Config.CATS_TRAIN_DATA_DIR
+train_data_dir = config.TRAIN_DATA_DIR
+validation_data_dir = config.VALIDATION_DATA_DIR
+cats_train_path = config.CATS_TRAIN_DATA_DIR
 nb_train_samples = 2 * len(
     [
         name
@@ -62,9 +33,6 @@ nb_train_samples = 2 * len(
         if os.path.isfile(os.path.join(cats_train_path, name))
     ]
 )
-nb_validation_samples = 800
-epochs = 10
-batch_size = 10
 
 
 def save_bottlebeck_features():

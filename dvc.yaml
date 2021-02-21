@@ -1,0 +1,7 @@
+stages:
+  prepare:
+    cmd: python3 pipeline/prepare.py
+    deps:
+    - data.zip
+    outs:
+    - data/

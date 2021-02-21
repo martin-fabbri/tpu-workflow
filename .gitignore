@@ -132,3 +132,4 @@ ngrok*
 /data
 /model.h5
 !model.h5.dvc
+/data.zip
