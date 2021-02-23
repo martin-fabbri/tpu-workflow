@@ -1,6 +1,0 @@
-dvc
-pillow>=5.3,<7
-scipy>=1.3,<2
-tensorflow>=2,<3
-keras
-tqdm>=4.41.0,<5
