@@ -18,7 +18,6 @@ activate:
 ## Install Python Dependencies.
 dependencies: 
 	$(PYTHON_INTERPRETER) -m pip install -U pipenv setuptools wheel
-	$(PYTHON_INTERPRETER) -m pipenv shell
 	$(PYTHON_INTERPRETER) -m pipenv install
 
 ## Import Python Dependencies from requirements.txt.

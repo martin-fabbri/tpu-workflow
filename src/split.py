@@ -35,8 +35,8 @@ def split(gcs_path, validation_split, image_resolution):
     split = len(filenames) - int(len(filenames) * validation_split)
     training_filenames = filenames[:split]
     validation_filenames = filenames[split:]
-    with open("train_split.json", "w") as train_split_json, open(
-        "val_split.json", "w"
+    with open("data/interim/train_split.json", "w") as train_split_json, open(
+        "data/interim/val_split.json", "w"
     ) as val_split_json:
         json.dump(training_filenames, train_split_json)
         json.dump(validation_filenames, val_split_json)
