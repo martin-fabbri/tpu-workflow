@@ -8,6 +8,7 @@ dvc = "==2.0.0a0"
 numpy = "*"
 matplotlib = "*"
 tensorflow = "~=2.4"
+kaggle = "*"
 
 [dev-packages]
 
