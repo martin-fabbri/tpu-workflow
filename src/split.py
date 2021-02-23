@@ -1,7 +1,10 @@
 import argparse
 import tensorflow as tf
 import json
-from kaggle.api.kaggle_api_extended import KaggleApi
+
+# from kaggle_datasets import KaggleDatasets
+
+# from kaggle.api.kaggle_api_extended import KaggleApi
 
 
 def get_dataset_path(gcs_path, image_resolution):
@@ -16,8 +19,16 @@ def get_dataset_path(gcs_path, image_resolution):
 
 def split(gcs_path, validation_split, image_resolution):
     print("split", gcs_path)
-    api = KaggleApi()
-    api.authenticate()
+    # api = KaggleApi()
+    # api.authenticate()
+
+    # gcs_path = (
+    #     KaggleDatasets().get_gcs_path()
+    # )  # you can list the bucket with "!gsutil ls $GCS_PATH"
+
+    # print("---")
+    # print(gcs_path)
+    # print("---")
 
     dataset_path = get_dataset_path(gcs_path, image_resolution)
     filenames = tf.io.gfile.glob(dataset_path)
