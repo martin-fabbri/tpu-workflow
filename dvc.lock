@@ -1,0 +1,17 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python3 src/split.py --gcs-path gs://kaggle-data-tpu --train-split-path data/interim/train_split.json
+      --val-split-path data/interim/val_split.json --validation-split 0.19 --image-size
+      331
+    deps:
+    - path: src/split.py
+      md5: d9cf1f2d3fca64471fff5bfca42c552e
+      size: 2539
+    outs:
+    - path: data/interim/train_split.json
+      md5: a7d8abf642eb5947126dc34c2b7e054d
+      size: 871
+    - path: data/interim/val_split.json
+      md5: 5cebdef047433ea028a93bf45f788ee4
+      size: 201
