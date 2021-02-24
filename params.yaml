@@ -2,4 +2,5 @@ train:
   nb_validation_samples: 800
   epochs: 10
   batch_size: 10
+  image_size: 331
 
