@@ -6,8 +6,8 @@ stages:
       331
     deps:
     - path: src/split.py
-      md5: d9cf1f2d3fca64471fff5bfca42c552e
-      size: 2539
+      md5: 892d77a3af00589b054e5c928b1650a2
+      size: 2438
     outs:
     - path: data/interim/train_split.json
       md5: a7d8abf642eb5947126dc34c2b7e054d
