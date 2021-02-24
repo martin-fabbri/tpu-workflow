@@ -16,7 +16,7 @@ dvc run -n split \
 -d src/split.py \
 -o data/interim/train_split.json \
 -o data/interim/val_split.json \
-python3 src/split.py split
+python3 src/split.py --gcs-path gs://kds-357fde648f21ba86b09520d51e296ad06846fd421d364336db3d426d --batch-size 16 
 ```
 
 
