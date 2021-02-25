@@ -19,7 +19,5 @@ def create_xception_ft_model(image_size, num_classes):
     model.compile(
         optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"]
     )
+
     return model
-
-
-create_xception_ft_model(331, 5)
