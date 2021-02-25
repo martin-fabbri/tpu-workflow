@@ -1,12 +1,9 @@
 stages:
   split:
-    cmd: python3 src/pipeline/split.py 
-      --gcs-path ${dataset.gcs_path}
-      --train-split-path ${split.train_split_path}
-      --val-split-path ${split.val_split_path} 
-      --images-count-path ${split.images_count_path}
-      --validation-split ${split.validation_split}
-      --image-size ${dataset.image_size}
+    cmd: python3 src/pipeline/split.py --gcs-path ${dataset.gcs_path} --train-split-path
+      ${split.train_split_path} --val-split-path ${split.val_split_path} --images-count-path
+      ${split.images_count_path} --validation-split ${split.validation_split} --image-size
+      ${dataset.image_size}
     deps:
     - src/pipeline/split.py
     - remote://${dataset.gcs_path_remote_alias}
@@ -15,3 +12,7 @@ stages:
     - ${split.val_split_path}
     - ${split.images_count_path}
 
+  train:
+    cmd: python src/pipeline/train.py --lr-start ${train.lr.start}
+    deps:
+    - src/pipeline/train.py

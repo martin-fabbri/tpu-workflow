@@ -3,6 +3,12 @@ dataset:
   # do not end the gcs_path with a backslash
   gcs_path: gs://kaggle-data-tpu/images
   gcs_path_remote_alias: gcs_images
+  classes:
+    - daisy
+    - dandelion
+    - roses
+    - sunflowers
+    - tulips
 
 split:
   train_split_path: data/interim/train_split.json
@@ -13,5 +19,13 @@ split:
 train:
   nb_validation_samples: 800
   epochs: 10
-  batch_size: 10
+  batch_size: 16
+  lr:
+    start: 0.00001
+    max: 0.00005
+    min: 0.00001
+    rampup_epochs: 5
+    sustain_epochs: 0
+    exp_decay: 0.8
+
 

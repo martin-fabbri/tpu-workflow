@@ -86,5 +86,10 @@ dvc run -n test_list_objects_gcs \
           python src/test_list_blobs.py
 ```
 
+```
+dvc run -n train \
+    -d src/pipeline/train.py \
+    python src/pipeline/train.py --lr 1
+```
 
 

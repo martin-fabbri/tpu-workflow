@@ -34,7 +34,7 @@ stages:
       size: 44
       nfiles: 2
   split:
-    cmd: python3 src/split.py --gcs-path gs://kaggle-data-tpu/images --train-split-path
+    cmd: python3 src/pipeline/split.py --gcs-path gs://kaggle-data-tpu/images --train-split-path
       data/interim/train_split.json --val-split-path data/interim/val_split.json --images-count-path
       data/interim/images_count.json --validation-split 0.19 --image-size 331
     deps:
@@ -42,7 +42,7 @@ stages:
       md5: 61d4627ec881871e7683b161b726e3ee.dir
       size: 1067709259
       nfiles: 3735
-    - path: src/split.py
+    - path: src/pipeline/split.py
       md5: 7e2d9421f9cac18bd18b4d7a55ab5f0d
       size: 3159
     outs:
@@ -55,3 +55,9 @@ stages:
     - path: data/interim/val_split.json
       md5: 3a634df5d52902bd59ebd43b98844c22
       size: 222
+  train:
+    cmd: python src/pipeline/train.py --lr-start 1e-05
+    deps:
+    - path: src/pipeline/train.py
+      md5: c44f9bf9e0e56d6cebb7a8cab208d952
+      size: 1702

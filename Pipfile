@@ -12,6 +12,14 @@ kaggle = "*"
 typing-extensions = "*"
 
 [dev-packages]
+ipykernel = "*"
+black = "*"
+pyyaml = "*"
+flake8 = "*"
+pydocstyle = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
