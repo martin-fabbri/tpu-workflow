@@ -1,17 +1,57 @@
 schema: '2.0'
 stages:
-  split:
-    cmd: python3 src/split.py --gcs-path gs://kaggle-data-tpu --train-split-path data/interim/train_split.json
-      --val-split-path data/interim/val_split.json --validation-split 0.19 --image-size
-      331
+  download_file:
+    cmd: gsutil cp gs://kaggle-data-tpu/test/test.txt test.txt
     deps:
-    - path: src/split.py
-      md5: 892d77a3af00589b054e5c928b1650a2
-      size: 2438
+    - path: gs://kaggle-data-tpu/test/test.txt
+      md5: 74e24b46e2336dd063622ee49c96514d
+      size: 22
     outs:
+    - path: test.txt
+      md5: 74e24b46e2336dd063622ee49c96514d
+      size: 22
+  download_file_2:
+    cmd: gsutil cp gs://kaggle-data-tpu/test/test_2.txt test_2.txt
+    deps:
+    - path: remote://gcs_test/test_2.txt
+      md5: 74e24b46e2336dd063622ee49c96514d
+      size: 22
+    outs:
+    - path: test_2.txt
+      md5: 74e24b46e2336dd063622ee49c96514d
+      size: 22
+  test_read_blob_gcs:
+    cmd: python src/test.py
+    deps:
+    - path: remote://gcs_test/test_2.txt
+      md5: 74e24b46e2336dd063622ee49c96514d
+      size: 22
+  test_list_objects_gcs:
+    cmd: python src/test_list_blobs.py
+    deps:
+    - path: remote://gcs_test
+      md5: 4c8d119295d08db866947dea99bd3272.dir
+      size: 44
+      nfiles: 2
+  split:
+    cmd: python3 src/split.py --gcs-path gs://kaggle-data-tpu/images --train-split-path
+      data/interim/train_split.json --val-split-path data/interim/val_split.json --images-count-path
+      data/interim/images_count.json --validation-split 0.19 --image-size 331
+    deps:
+    - path: remote://gcs_images
+      md5: 61d4627ec881871e7683b161b726e3ee.dir
+      size: 1067709259
+      nfiles: 3735
+    - path: src/split.py
+      md5: 7e2d9421f9cac18bd18b4d7a55ab5f0d
+      size: 3159
+    outs:
+    - path: data/interim/images_count.json
+      md5: cb5f6e38428e031affe368e5e4b64351
+      size: 59
     - path: data/interim/train_split.json
-      md5: a7d8abf642eb5947126dc34c2b7e054d
-      size: 871
+      md5: 990315c7d90f4d0d640be37145518a78
+      size: 962
     - path: data/interim/val_split.json
-      md5: 5cebdef047433ea028a93bf45f788ee4
-      size: 201
+      md5: 3a634df5d52902bd59ebd43b98844c22
+      size: 222

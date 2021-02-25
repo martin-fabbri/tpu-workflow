@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-dvc = "==2.0.0a0"
+dvc = {extras = ["gs"], version = "==2.0.0a0"}
 numpy = "*"
 matplotlib = "*"
 tensorflow = "~=2.4"

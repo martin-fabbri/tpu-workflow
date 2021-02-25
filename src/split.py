@@ -1,6 +1,8 @@
 import argparse
 import json
+import re
 
+import numpy as np
 import tensorflow as tf
 
 
@@ -14,10 +16,26 @@ def get_dataset_path(gcs_path, image_size):
     return flowers_datasets[image_size]
 
 
-def split(gcs_path, train_split_path, val_split_path, validation_split, image_size):
+def count_data_items(filenames):
+    n = [
+        int(re.compile(r"-([0-9]*)\.").search(filename).group(1))
+        for filename in filenames
+    ]
+    return int(np.sum(n))
+
+
+def split(
+    gcs_path,
+    train_split_path,
+    val_split_path,
+    images_count_path,
+    validation_split,
+    image_size,
+):
     print("split", gcs_path)
 
     dataset_path = get_dataset_path(gcs_path, image_size)
+    # dataset_path = gcs_path
     filenames = tf.io.gfile.glob(dataset_path)
     split = len(filenames) - int(len(filenames) * validation_split)
     training_filenames = filenames[:split]
@@ -27,8 +45,15 @@ def split(gcs_path, train_split_path, val_split_path, validation_split, image_si
     ) as val_split_json:
         json.dump(training_filenames, train_split_json)
         json.dump(validation_filenames, val_split_json)
-    # print("TRAINING IMAGES: ", count_data_items(TRAINING_FILENAMES), ", STEPS PER EPOCH: ", TRAIN_STEPS)
-    # print("VALIDATION IMAGES: ", count_data_items(VALIDATION_FILENAMES))
+
+    images_count = {
+        "num_training_images": count_data_items(training_filenames),
+        "num_validation_images": count_data_items(validation_filenames),
+    }
+    print("images count:", images_count["num_training_images"])
+    print("validation images: ", images_count["num_validation_images"])
+    with open(images_count_path, "w") as images_count_json:
+        json.dump(images_count, images_count_json)
 
     print("training split saved at: data/interim/train_split.json")
     print("validation split saved at: data/interim/val_split.json")
@@ -55,6 +80,12 @@ if __name__ == "__main__":
         help="Validation split relative path",
     )
     parser.add_argument(
+        "--images-count-path",
+        dest="images_count_path",
+        required=True,
+        help="Training and Validation images count",
+    )
+    parser.add_argument(
         "--validation-split",
         dest="validation_split",
         type=float,
@@ -75,6 +106,7 @@ if __name__ == "__main__":
         args.gcs_path,
         args.train_split_path,
         args.val_split_path,
+        args.images_count_path,
         args.validation_split,
         args.image_size,
     )

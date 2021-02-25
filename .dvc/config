@@ -1,2 +1,8 @@
+[cache]
+    gs = gscache
 ['remote "origin"']
     url = https://dagshub.com/martin-fabbri/tpu-workflow.dvc
+['remote "gcs_images"']
+    url = gs://kaggle-data-tpu/images
+['remote "gscache"']
+    url = gs://kaggle-data-tpu/dvc_gs_cache

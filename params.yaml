@@ -1,10 +1,13 @@
 dataset:
   image_size: 331
-  gcs_patn: gs://kaggle-data-tpu
+  # do not end the gcs_path with a backslash
+  gcs_path: gs://kaggle-data-tpu/images
+  gcs_path_remote_alias: gcs_images
 
 split:
   train_split_path: data/interim/train_split.json
   val_split_path: data/interim/val_split.json
+  images_count_path: data/interim/images_count.json
   validation_split: 0.19
 
 train:
