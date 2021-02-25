@@ -10,6 +10,7 @@ matplotlib = "*"
 tensorflow = "~=2.4"
 kaggle = "*"
 typing-extensions = "*"
+cloud-tpu-client = "*"
 
 [dev-packages]
 ipykernel = "*"
