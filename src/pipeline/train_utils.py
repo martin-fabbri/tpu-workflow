@@ -1,12 +1,12 @@
-from enum import auto
-from numpy.lib.npyio import load
-
+"""Todo: Add documentation."""
 import tensorflow as tf
 
 AUTO = tf.data.experimental.AUTOTUNE
 
 
 class MapDict(dict):
+    """todo: add doc."""
+
     def __getattr__(self, key):
         try:
             return self[key]
@@ -42,9 +42,7 @@ def lrfn(lr, epoch):
 
 
 def read_tfrecords(example):
-    """
-    Defines the structure to load an image record.
-    """
+    """Define the structure to load an image record."""
     features = {
         "image": tf.io.FixedLenFeature([], tf.string),  # tf.str = bytestring
         "class": tf.io.FixedLenFeature([], tf.int64),  # shape [] means scalar
@@ -59,9 +57,7 @@ def read_tfrecords(example):
 
 
 def force_image_sizes(dataset, image_size):
-    """
-    Explicit size needed for TPU
-    """
+    """Explicit size needed for TPU."""
     reshape_images = lambda image, label: (
         tf.reshape(image, [image_size, image_size, 3]),
         label,
@@ -88,8 +84,32 @@ def load_dataset(filenames, image_size):
     return dataset
 
 
+def data_augmentation(image, one_hot_class):
+    """Todo: add doc."""
+    image = tf.image.random_flip_left_right(image)
+    image = tf.image.random_saturation(image, 0, 2)
+    return image, one_hot_class
+
+
+def get_training_dataset(training_files_path, image_size, batch_size):
+    """Todo: Add doc."""
+    dataset = load_dataset(training_files_path, image_size)
+    dataset = dataset.map(data_augmentation, num_parallel_calls=AUTO)
+    dataset = dataset.repeat()
+    dataset = dataset.shuffle(2048)
+    dataset = dataset.batch(batch_size)
+    dataset = dataset.prefetch(AUTO)
+    return dataset
+
+
 def get_validation_dataset(validation_files_path, image_size, batch_size):
+    """Todo: Add doc."""
     dataset = load_dataset(validation_files_path, image_size)
     dataset = dataset.batch(batch_size)
     dataset = dataset.prefetch(AUTO)
     return dataset
+
+
+def to_float32(image, label):
+    """TPUs require data in float32 format."""
+    return tf.cast(image, tf.float32), label
