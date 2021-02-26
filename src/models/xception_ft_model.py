@@ -1,3 +1,4 @@
+"""Todo: add doc."""
 from tensorflow.keras import Sequential
 from tensorflow.keras.applications import Xception
 from tensorflow.keras.applications.xception import preprocess_input
@@ -5,6 +6,7 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Lambda
 
 
 def create_xception_ft_model(image_size, num_classes):
+    """Todo: add doc."""
     img_adjust_layer = Lambda(preprocess_input, input_shape=[image_size, image_size, 3])
     pretrained_model = Xception(include_top=False)
     pretrained_model.trainable = True

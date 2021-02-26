@@ -59,5 +59,5 @@ stages:
     cmd: python src/pipeline/train.py --lr-start 1e-05
     deps:
     - path: src/pipeline/train.py
-      md5: f7e6fee0e9c97d1432bd08d772686d0f
-      size: 1939
+      md5: 9e9677c96da4625f55568f7450518c8c
+      size: 2435
