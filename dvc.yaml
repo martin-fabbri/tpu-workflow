@@ -23,6 +23,7 @@ stages:
       --val-split-path ${split.val_split_path}
       --images-count-path ${split.images_count_path}
       --saved-model-path ${train.saved_model_path}
+      --train-plot-path ${train.train_plot_path}
     deps:
     - src/pipeline/train.py
     - ${split.train_split_path}
@@ -31,3 +32,7 @@ stages:
     - ${dataset.classes_path}
     outs:
     - ${train.saved_model_path}
+    plots:
+    - ${train.train_plot_path}:
+        x: epoch
+        y: accuracy

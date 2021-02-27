@@ -10,6 +10,7 @@ if __name__ == "__main__":
 import argparse
 import json
 
+import numpy as np
 import tensorflow as tf
 from models.xception_ft_model import create_xception_ft_model
 from tensorflow.keras.callbacks import LearningRateScheduler
@@ -64,6 +65,32 @@ def samples_count(images_split_count_path):
     return num_training_images, num_validation_images
 
 
+def save_training_plot_series(history, epochs, train_plot_path):
+    num_epoch = [i + 1 for i in range(epochs)]
+    with open(train_plot_path, "w") as fplot:
+        json.dump(
+            {
+                "avls": [
+                    {
+                        "epoch": e,
+                        "accuracy": a,
+                        "val_accuracy": va,
+                        "loss": l,
+                        "val_loss": vl,
+                    }
+                    for e, a, va, l, vl in zip(
+                        num_epoch,
+                        history.history["accuracy"][1:],
+                        history.history["val_accuracy"][1:],
+                        history.history["loss"][1:],
+                        history.history["val_loss"][1:],
+                    )
+                ]
+            },
+            fplot,
+        )
+
+
 def train(
     lr,
     classes_path,
@@ -74,6 +101,7 @@ def train(
     val_split_path,
     images_count_path,
     saved_model_path,
+    train_plot_path,
 ):
     strategy = initialize_tpu_connection()
 
@@ -112,6 +140,7 @@ def train(
     )
 
     model.save(saved_model_path)
+    save_training_plot_series(history, epochs, train_plot_path)
 
 
 if __name__ == "__main__":
@@ -222,6 +251,13 @@ if __name__ == "__main__":
         required=True,
         help="Saved model path",
     )
+    parser.add_argument(
+        "--train-plot-path",
+        dest="train_plot_path",
+        type=str,
+        required=True,
+        help="Train plot metrics series",
+    )
     args = parser.parse_args()
     lr = MapDict(
         {
@@ -243,4 +279,5 @@ if __name__ == "__main__":
         args.val_split_path,
         args.images_count_path,
         args.saved_model_path,
+        args.train_plot_path,
     )

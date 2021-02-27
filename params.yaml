@@ -29,5 +29,6 @@ train:
     sustain_epochs: 0
     exp_decay: 0.8
   saved_model_path: models/xception_model.h5
+  train_plot_path: plots/train_accuracy_plot.json
 
 
