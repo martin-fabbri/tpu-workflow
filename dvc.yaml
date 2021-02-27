@@ -36,3 +36,18 @@ stages:
     - ${train.train_plot_path}:
         x: epoch
         y: accuracy
+  evaluate:
+      cmd: python src/pipeline/evaluate.py 
+        --image-size ${dataset.image_size}
+        --batch-size ${train.batch_size}
+        --val-split-path ${split.val_split_path}
+        --saved-model-path ${train.saved_model_path}
+        --evaluate-metrics-path ${evaluate.evaluate_metrics_path}
+      deps:
+      - src/pipeline/evaluate.py
+      - ${split.val_split_path}
+      - ${train.saved_model_path}
+      metrics:
+      - ${evaluate.evaluate_metrics_path}:
+          cache: false
+
