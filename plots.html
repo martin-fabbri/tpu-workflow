@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DVC Plot</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.10.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.8.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.5.1"></script>
+</head>
+<body>
+    <div id = "plot0"></div>
+<script type = "text/javascript">
+    var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+        "values": [
+    {
+        "accuracy": 0.789402186870575,
+        "epoch": 1,
+        "loss": 0.8384931683540344,
+        "rev": "workspace",
+        "val_accuracy": 0.8955882787704468,
+        "val_loss": 0.390472948551178
+    },
+    {
+        "accuracy": 0.91847825050354,
+        "epoch": 2,
+        "loss": 0.2779841721057892,
+        "rev": "workspace",
+        "val_accuracy": 0.925000011920929,
+        "val_loss": 0.2065972089767456
+    },
+    {
+        "accuracy": 0.962296187877655,
+        "epoch": 3,
+        "loss": 0.13374076783657074,
+        "rev": "workspace",
+        "val_accuracy": 0.958823561668396,
+        "val_loss": 0.14084596931934357
+    },
+    {
+        "accuracy": 0.977921187877655,
+        "epoch": 4,
+        "loss": 0.07568778097629547,
+        "rev": "workspace",
+        "val_accuracy": 0.9470588564872742,
+        "val_loss": 0.18372872471809387
+    },
+    {
+        "accuracy": 0.9911684989929199,
+        "epoch": 5,
+        "loss": 0.03848172724246979,
+        "rev": "workspace",
+        "val_accuracy": 0.9500000476837158,
+        "val_loss": 0.18256403505802155
+    },
+    {
+        "accuracy": 0.9884511232376099,
+        "epoch": 6,
+        "loss": 0.034596361219882965,
+        "rev": "workspace",
+        "val_accuracy": 0.9529411792755127,
+        "val_loss": 0.1517212688922882
+    },
+    {
+        "accuracy": 0.992527186870575,
+        "epoch": 7,
+        "loss": 0.025380440056324005,
+        "rev": "workspace",
+        "val_accuracy": 0.945588231086731,
+        "val_loss": 0.1877206414937973
+    },
+    {
+        "accuracy": 0.9949049353599548,
+        "epoch": 8,
+        "loss": 0.018348518759012222,
+        "rev": "workspace",
+        "val_accuracy": 0.9617647528648376,
+        "val_loss": 0.13625718653202057
+    },
+    {
+        "accuracy": 0.9962636232376099,
+        "epoch": 9,
+        "loss": 0.012977096252143383,
+        "rev": "workspace",
+        "val_accuracy": 0.9602941274642944,
+        "val_loss": 0.15122373402118683
+    },
+    {
+        "accuracy": 0.9989809989929199,
+        "epoch": 10,
+        "loss": 0.006493978202342987,
+        "rev": "workspace",
+        "val_accuracy": 0.9558823704719543,
+        "val_loss": 0.1520034223794937
+    },
+    {
+        "accuracy": 0.99830162525177,
+        "epoch": 11,
+        "loss": 0.0074783614836633205,
+        "rev": "workspace",
+        "val_accuracy": 0.958823561668396,
+        "val_loss": 0.1377326399087906
+    }
+]
+    },
+    "title": "",
+    "width": 300,
+    "height": 300,
+    "mark": {
+        "type": "line"
+    },
+    "encoding": {
+        "x": {
+            "field": "epoch",
+            "type": "quantitative",
+            "title": "epoch"
+        },
+        "y": {
+            "field": "loss",
+            "type": "quantitative",
+            "title": "loss",
+            "scale": {
+                "zero": false
+            }
+        },
+        "color": {
+            "field": "rev",
+            "type": "nominal"
+        }
+    }
+}
+;
+    vegaEmbed('#plot0', spec);
+</script>
+</body>
+</html>
