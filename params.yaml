@@ -9,6 +9,7 @@ dataset:
     - roses
     - sunflowers
     - tulips
+  classes_path: data/domain/classes.json
 
 split:
   train_split_path: data/interim/train_split.json
@@ -27,5 +28,6 @@ train:
     rampup_epochs: 5
     sustain_epochs: 0
     exp_decay: 0.8
+  saved_model_path: models/xception_model.h5
 
 

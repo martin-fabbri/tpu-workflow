@@ -13,6 +13,21 @@ stages:
     - ${split.images_count_path}
 
   train:
-    cmd: python src/pipeline/train.py --lr-start ${train.lr.start}
+    cmd: python src/pipeline/train.py 
+      --lr-start ${train.lr.start} 
+      --classes-path ${dataset.classes_path} 
+      --image-size ${dataset.image_size}
+      --epochs ${train.epochs}
+      --batch-size ${train.batch_size}
+      --train-split-path ${split.train_split_path}
+      --val-split-path ${split.val_split_path}
+      --images-count-path ${split.images_count_path}
+      --saved-model-path ${train.saved_model_path}
     deps:
     - src/pipeline/train.py
+    - ${split.train_split_path}
+    - ${split.val_split_path}
+    - ${split.images_count_path}
+    - ${dataset.classes_path}
+    outs:
+    - ${train.saved_model_path}

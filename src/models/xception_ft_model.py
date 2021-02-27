@@ -1,4 +1,10 @@
 """Todo: add doc."""
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 from tensorflow.keras import Sequential
 from tensorflow.keras.applications import Xception
 from tensorflow.keras.applications.xception import preprocess_input
