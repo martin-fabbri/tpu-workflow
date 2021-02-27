@@ -56,8 +56,29 @@ stages:
       md5: 3a634df5d52902bd59ebd43b98844c22
       size: 222
   train:
-    cmd: python src/pipeline/train.py --lr-start 1e-05
+    cmd: python src/pipeline/train.py --lr-start 1e-05 --classes-path data/domain/classes.json
+      --image-size 331 --epochs 12 --batch-size 16 --train-split-path data/interim/train_split.json
+      --val-split-path data/interim/val_split.json --images-count-path data/interim/images_count.json
+      --saved-model-path models/xception_model.h5
     deps:
+    - path: data/domain/classes.json
+      md5: 536eef1578b80119c679abe0e2fe63c7
+      size: 77
+    - path: data/interim/images_count.json
+      md5: cb5f6e38428e031affe368e5e4b64351
+      size: 59
+    - path: data/interim/train_split.json
+      md5: 990315c7d90f4d0d640be37145518a78
+      size: 962
+    - path: data/interim/val_split.json
+      md5: 3a634df5d52902bd59ebd43b98844c22
+      size: 222
     - path: src/pipeline/train.py
-      md5: 9e9677c96da4625f55568f7450518c8c
-      size: 2435
+      md5: 330160fd9b7927109555ac6dbfa9deca
+      size: 6704
+    outs:
+    - path: models/xception_model.h5
+      md5: 35b566e4fabfd263a1ed7c103fe2b6f7
+      size: 250635496
+  setup:
+    cmd: python3 src/pipeline/setup.py
