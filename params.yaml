@@ -33,5 +33,8 @@ train:
 evaluate:
   evaluate_metrics_path: metrics/evaluate_metrics.json
 checkpoint:
-  path: checkpoints/cp.ckpt
+  dir_path: checkpoints
+  prefix: cp.ckpt
+  index: cp.ckpt.index
+  volume: cp.ckpt.data-00000-of-00001
 

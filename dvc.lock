@@ -60,6 +60,7 @@ stages:
       --image-size 331 --epochs 12 --batch-size 16 --train-split-path data/interim/train_split.json
       --val-split-path data/interim/val_split.json --images-count-path data/interim/images_count.json
       --saved-model-path models/xception_model.h5 --train-plot-path plots/train_accuracy_plot.json
+      --checkpoint-dir checkpoints --checkpoint-prefix cp.ckpt
     deps:
     - path: data/domain/classes.json
       md5: 536eef1578b80119c679abe0e2fe63c7
@@ -74,15 +75,24 @@ stages:
       md5: 3a634df5d52902bd59ebd43b98844c22
       size: 222
     - path: src/pipeline/train.py
-      md5: 0d104fe3c19c8d0c06baaa01b1e42431
-      size: 7866
+      md5: c8004d60d4b563d7f6e91484ce47ef59
+      size: 8653
     outs:
+    - path: checkpoints/checkpoint
+      md5: 04d5dddb0afda887c287a6ba51725e32
+      size: 71
+    - path: checkpoints/cp.ckpt.data-00000-of-00001
+      md5: d2c83af5170baada8a2d7180c1ebcc1e
+      size: 250102229
+    - path: checkpoints/cp.ckpt.index
+      md5: ad47ca60d78377d23dd5d90931c1b647
+      size: 40587
     - path: models/xception_model.h5
-      md5: ce3b7e6acef78add06a7aaeff6c7cb82
+      md5: f1a02bff5e323e4b1e7e59cf5e50950b
       size: 250635496
     - path: plots/train_accuracy_plot.json
-      md5: 68da820686416cff688cf0ee5d04ef2e
-      size: 1582
+      md5: 302c3d789dddeebe589f774989a8fafc
+      size: 1571
   setup:
     cmd: python3 src/pipeline/setup.py
   evaluate:
@@ -94,12 +104,12 @@ stages:
       md5: 3a634df5d52902bd59ebd43b98844c22
       size: 222
     - path: models/xception_model.h5
-      md5: ce3b7e6acef78add06a7aaeff6c7cb82
+      md5: f1a02bff5e323e4b1e7e59cf5e50950b
       size: 250635496
     - path: src/pipeline/evaluate.py
       md5: 8cad7e36c9b7a4e92d9c73d462406d9c
       size: 2263
     outs:
     - path: metrics/evaluate_metrics.json
-      md5: fa935bcba5c06c93144afdd6533ce785
-      size: 62
+      md5: a70c54a6c2ce6688688b03143f076c12
+      size: 64

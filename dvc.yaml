@@ -24,6 +24,8 @@ stages:
       --images-count-path ${split.images_count_path}
       --saved-model-path ${train.saved_model_path}
       --train-plot-path ${train.train_plot_path}
+      --checkpoint-dir ${checkpoint.dir_path}
+      --checkpoint-prefix ${checkpoint.prefix}
     deps:
     - src/pipeline/train.py
     - ${split.train_split_path}
@@ -32,6 +34,9 @@ stages:
     - ${dataset.classes_path}
     outs:
     - ${train.saved_model_path}
+    - ${checkpoint.dir_path}/${checkpoint.prefix}.index
+    - ${checkpoint.dir_path}/${checkpoint.prefix}.data-00000-of-00001
+    - ${checkpoint.dir_path}/checkpoint
     plots:
     - ${train.train_plot_path}:
         x: epoch

@@ -9,11 +9,12 @@ if __name__ == "__main__":
 
 import argparse
 import json
+from pathlib import Path
 
 import numpy as np
 import tensorflow as tf
 from models.xception_ft_model import create_xception_ft_model
-from tensorflow.keras.callbacks import LearningRateScheduler
+from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
 
 from pipeline.train_utils import (
     MapDict,
@@ -102,6 +103,8 @@ def train(
     images_count_path,
     saved_model_path,
     train_plot_path,
+    checkpoint_dir,
+    checkpoint_prefix,
 ):
     strategy = initialize_tpu_connection()
 
@@ -130,13 +133,20 @@ def train(
     train_steps = num_training_images // batch_size
 
     lr_callback = LearningRateScheduler(lambda epoch: lrfn(lr, epoch), verbose=True)
+    options = tf.train.CheckpointOptions(experimental_io_device="/job:localhost")
+    cp_callback = ModelCheckpoint(
+        filepath=Path(checkpoint_dir) / checkpoint_prefix,
+        save_weights_only=True,
+        verbose=1,
+        options=options,
+    )
 
     history = model.fit(
         training_dataset,
         validation_data=validation_dataset,
         steps_per_epoch=train_steps,
         epochs=epochs,
-        callbacks=[lr_callback],
+        callbacks=[cp_callback, lr_callback],
     )
 
     model.save(saved_model_path)
@@ -258,6 +268,20 @@ if __name__ == "__main__":
         required=True,
         help="Train plot metrics series",
     )
+    parser.add_argument(
+        "--checkpoint-dir",
+        dest="checkpoint_dir",
+        type=str,
+        required=True,
+        help="Model's checkpoints dir path",
+    )
+    parser.add_argument(
+        "--checkpoint-prefix",
+        dest="checkpoint_prefix",
+        type=str,
+        required=True,
+        help="Pattern prefixed to all checkpoint files",
+    )
     args = parser.parse_args()
     lr = MapDict(
         {
@@ -280,4 +304,6 @@ if __name__ == "__main__":
         args.images_count_path,
         args.saved_model_path,
         args.train_plot_path,
+        args.checkpoint_dir,
+        args.checkpoint_prefix,
     )
