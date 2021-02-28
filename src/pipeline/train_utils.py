@@ -113,3 +113,12 @@ def get_validation_dataset(validation_files_path, image_size, batch_size):
 def to_float32(image, label):
     """TPUs require data in float32 format."""
     return tf.cast(image, tf.float32), label
+
+
+def dataset_to_numpy_util(dataset, N):
+    dataset = dataset.unbatch().batch(N)
+    for images, labels in dataset:
+        numpy_images = images.numpy()
+        numpy_labels = labels.numpy()
+        break
+    return numpy_images, numpy_labels

@@ -85,3 +85,21 @@ stages:
       size: 1582
   setup:
     cmd: python3 src/pipeline/setup.py
+  evaluate:
+    cmd: python src/pipeline/evaluate.py --image-size 331 --batch-size 16 --val-split-path
+      data/interim/val_split.json --saved-model-path models/xception_model.h5 --evaluate-metrics-path
+      metrics/evaluate_metrics.json
+    deps:
+    - path: data/interim/val_split.json
+      md5: 3a634df5d52902bd59ebd43b98844c22
+      size: 222
+    - path: models/xception_model.h5
+      md5: ce3b7e6acef78add06a7aaeff6c7cb82
+      size: 250635496
+    - path: src/pipeline/evaluate.py
+      md5: 8cad7e36c9b7a4e92d9c73d462406d9c
+      size: 2263
+    outs:
+    - path: metrics/evaluate_metrics.json
+      md5: fa935bcba5c06c93144afdd6533ce785
+      size: 62

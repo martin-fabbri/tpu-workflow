@@ -24,7 +24,7 @@ def validation_split_files(val_split_path):
 def evaluate(
     saved_model_path, val_split_path, image_size, batch_size, evaluate_metrics_path
 ):
-    val_split_files, val_split_files = validation_split_files(val_split_path)
+    val_split_files = validation_split_files(val_split_path)
     validation_dataset = get_validation_dataset(val_split_files, image_size, batch_size)
     eval_samples, eval_labels = dataset_to_numpy_util(validation_dataset, 160)
     reload_model = load_model(saved_model_path)
