@@ -32,4 +32,6 @@ train:
   train_plot_path: plots/train_accuracy_plot.json
 evaluate:
   evaluate_metrics_path: metrics/evaluate_metrics.json
+checkpoint:
+  path: checkpoints/cp.ckpt
 
